@@ -1,13 +1,13 @@
 # AdvancedDevSample API
 
-Bienvenue dans la documentation de l'API **AdvancedDevSample**.
+Documentation technique de l'API AdvancedDevSample.
 
-## 🚀 Démarrage rapide
+## Demarrage rapide
 
-### Prérequis
+### Prerequis
 
 - .NET 10.0 SDK
-- Un éditeur de code (VS Code, Rider, Visual Studio)
+- Un editeur de code (VS Code, Rider, Visual Studio)
 
 ### Lancer l'API
 
@@ -18,11 +18,11 @@ dotnet run
 
 L'API sera disponible sur : `https://localhost:5001`
 
-### Accéder à Swagger
+### Acceder a Swagger
 
-Une fois l'API lancée, ouvrez : [https://localhost:5001/swagger](https://localhost:5001/swagger)
+Une fois l'API lancee, ouvrez : [https://localhost:5001/swagger](https://localhost:5001/swagger)
 
-## 🔐 Authentification
+## Authentification
 
 L'API utilise **JWT (JSON Web Token)** pour l'authentification.
 
@@ -43,18 +43,59 @@ curl https://localhost:5001/api/products \
   -H "Authorization: Bearer VOTRE_TOKEN"
 ```
 
-## 📚 Structure du projet
+## Structure du projet
 
 | Couche | Description |
 |--------|-------------|
-| **Api** | Contrôleurs REST, configuration Swagger |
+| **Api** | Controleurs REST, configuration Swagger |
 | **Application** | DTOs, Services applicatifs |
-| **Domain** | Entités, Value Objects, Règles métier |
-| **Infrastructure** | Repositories, Accès aux données |
+| **Domain** | Entites, Value Objects, Regles metier |
+| **Infrastructure** | Repositories, Acces aux donnees |
 
-## 🧪 Tests
+## Tests
 
 ```bash
 cd AdvancedDevSample.Test
 dotnet test
 ```
+
+## Qualite du code
+
+### SonarCloud
+
+Le projet utilise SonarCloud pour l'analyse statique du code.
+
+**Metriques analysees :**
+
+- Couverture de code
+- Bugs potentiels
+- Code smells
+- Vulnerabilites de securite
+- Dette technique
+- Duplications de code
+
+**Acces au dashboard :**
+
+```
+https://sonarcloud.io/project/overview?id=HugoRytlewski_AdvancedDevSampleFinal
+```
+
+### Principes Clean Code appliques
+
+| Principe | Application |
+|----------|-------------|
+| **Single Responsibility** | Chaque classe a une seule responsabilite |
+| **Open/Closed** | Extension via interfaces, modification fermee |
+| **Liskov Substitution** | Les implementations respectent les contrats |
+| **Interface Segregation** | Interfaces specifiques (IProductRepository) |
+| **Dependency Inversion** | Injection de dependances via constructeur |
+
+### Conventions de nommage
+
+| Element | Convention | Exemple |
+|---------|------------|---------|
+| Classes | PascalCase | `ProductService` |
+| Methodes | PascalCase | `GetAllProducts()` |
+| Variables | camelCase | `productList` |
+| Constantes | UPPER_SNAKE | `MAX_RETRY_COUNT` |
+| Interfaces | I + PascalCase | `IProductRepository` |

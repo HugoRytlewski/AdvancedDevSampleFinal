@@ -1,10 +1,10 @@
 # API Reference
 
-Documentation complète des endpoints de l'API AdvancedDevSample.
+Documentation complete des endpoints de l'API AdvancedDevSample.
 
-## 🔐 Authentification
+## Authentification
 
-### POST `/api/auth/login`
+### POST /api/auth/login
 
 Authentifie un utilisateur et retourne un token JWT.
 
@@ -21,10 +21,10 @@ Authentifie un utilisateur et retourne un token JWT.
 
 | Code | Description |
 |------|-------------|
-| 200 | Authentification réussie, retourne le token |
+| 200 | Authentification reussie, retourne le token |
 | 401 | Identifiants incorrects |
 
-**Exemple de réponse (200):**
+**Exemple de reponse (200):**
 
 ```json
 {
@@ -34,23 +34,22 @@ Authentifie un utilisateur et retourne un token JWT.
 
 ---
 
-## 📦 Produits
+## Produits
 
-!!! note "Authentification requise"
-    Tous les endpoints `/api/products` nécessitent un token JWT valide.
+> **Note:** Tous les endpoints `/api/products` necessitent un token JWT valide.
 
-### GET `/api/products`
+### GET /api/products
 
-Récupère la liste de tous les produits.
+Recupere la liste de tous les produits.
 
 **Responses:**
 
 | Code | Description |
 |------|-------------|
 | 200 | Liste des produits |
-| 401 | Non autorisé |
+| 401 | Non autorise |
 
-**Exemple de réponse:**
+**Exemple de reponse:**
 
 ```json
 [
@@ -66,13 +65,13 @@ Récupère la liste de tous les produits.
 
 ---
 
-### GET `/api/products/{id}`
+### GET /api/products/{id}
 
-Récupère un produit par son identifiant.
+Recupere un produit par son identifiant.
 
 **Path Parameters:**
 
-| Paramètre | Type | Description |
+| Parametre | Type | Description |
 |-----------|------|-------------|
 | `id` | UUID | Identifiant unique du produit |
 
@@ -80,15 +79,15 @@ Récupère un produit par son identifiant.
 
 | Code | Description |
 |------|-------------|
-| 200 | Détails du produit |
-| 404 | Produit non trouvé |
-| 401 | Non autorisé |
+| 200 | Details du produit |
+| 404 | Produit non trouve |
+| 401 | Non autorise |
 
 ---
 
-### POST `/api/products`
+### POST /api/products
 
-Crée un nouveau produit.
+Cree un nouveau produit.
 
 **Request Body:**
 
@@ -104,13 +103,13 @@ Crée un nouveau produit.
 
 | Code | Description |
 |------|-------------|
-| 201 | Produit créé avec succès |
-| 400 | Données invalides |
-| 401 | Non autorisé |
+| 201 | Produit cree avec succes |
+| 400 | Donnees invalides |
+| 401 | Non autorise |
 
 ---
 
-### PUT `/api/products/{id}/price`
+### PUT /api/products/{id}/price
 
 Modifie le prix d'un produit existant.
 
@@ -126,14 +125,14 @@ Modifie le prix d'un produit existant.
 
 | Code | Description |
 |------|-------------|
-| 204 | Prix modifié avec succès |
+| 204 | Prix modifie avec succes |
 | 400 | Prix invalide |
-| 404 | Produit non trouvé |
-| 401 | Non autorisé |
+| 404 | Produit non trouve |
+| 401 | Non autorise |
 
 ---
 
-### DELETE `/api/products/{id}`
+### DELETE /api/products/{id}
 
 Supprime un produit.
 
@@ -141,15 +140,24 @@ Supprime un produit.
 
 | Code | Description |
 |------|-------------|
-| 204 | Produit supprimé |
-| 401 | Non autorisé |
+| 204 | Produit supprime |
+| 401 | Non autorise |
 
 ---
 
-## 📄 Swagger UI
+## Swagger UI
 
-Pour une documentation interactive, accédez à Swagger UI une fois l'API lancée :
+Pour une documentation interactive, accedez a Swagger UI une fois l'API lancee :
 
 ```
 https://localhost:5001/swagger
 ```
+
+## Codes d'erreur
+
+| Code HTTP | Signification | Action recommandee |
+|-----------|---------------|-------------------|
+| 400 | Bad Request | Verifier les donnees envoyees |
+| 401 | Unauthorized | Verifier le token JWT |
+| 404 | Not Found | Verifier l'identifiant |
+| 500 | Server Error | Contacter l'administrateur |
