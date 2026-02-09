@@ -74,6 +74,79 @@ namespace AdvancedDevSample.Test.Domain.Entities
            Assert.Throws<DomainException>(() => new Price(-10));
 
         }
+
+        [Fact]
+        public void Constructor_WithPriceOnly_SetsDefaultName()
+        {
+            // Arrange & Act
+            var price = new Price(100m, "EUR");
+            var product = new Product(price);
+
+            // Assert
+            Assert.Equal("Produit sans nom", product.Name);
+            Assert.Equal(100m, product.Price.Value);
+            Assert.True(product.IsActive);
+        }
+
+        [Fact]
+        public void Constructor_WithIdPriceAndIsActive_SetsProperties()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var price = new Price(250m, "USD");
+
+            // Act
+            var product = new Product(id, price, false);
+
+            // Assert
+            Assert.Equal(id, product.Id);
+            Assert.Equal("Produit sans nom", product.Name);
+            Assert.Equal(250m, product.Price.Value);
+            Assert.False(product.IsActive);
+        }
+
+        [Fact]
+        public void Constructor_WithIdAndPrice_SetsDefaultNameAndActive()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var price = new Price(75m, "GBP");
+
+            // Act
+            var product = new Product(id, price);
+
+            // Assert
+            Assert.Equal(id, product.Id);
+            Assert.Equal("Produit sans nom", product.Name);
+            Assert.Equal(75m, product.Price.Value);
+            Assert.True(product.IsActive);
+        }
+
+        [Fact]
+        public void ChangePrice_WithDecimal_UpdatesPrice_WhenActive()
+        {
+            // Arrange
+            var product = new Product("Test", new Price(100m, "EUR"));
+
+            // Act
+            product.ChangePrice(150m);
+
+            // Assert
+            Assert.Equal(150m, product.Price.Value);
+            Assert.Equal("EUR", product.Price.Currency);
+        }
+
+        [Fact]
+        public void ChangePrice_WithDecimal_ThrowsException_WhenInactive()
+        {
+            // Arrange
+            var product = new Product("Test", new Price(100m, "EUR"));
+            product.Deactivate();
+
+            // Act & Assert
+            var exception = Assert.Throws<DomainException>(() => product.ChangePrice(150m));
+            Assert.Equal("Le produit est inactif.", exception.Message);
+        }
     }
 }
 

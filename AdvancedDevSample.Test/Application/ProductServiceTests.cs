@@ -156,5 +156,45 @@ namespace AdvancedDevSample.Test.Application
             // Act & Assert
             Assert.Throws<ApplicationServiceException>(() => _service.GetProductDto(Guid.NewGuid()));
         }
+
+        [Fact]
+        public void CreateProduct_Should_Throw_When_Name_Is_Empty()
+        {
+            // Arrange
+            var request = new CreateProductRequest
+            {
+                Name = "",
+                Price = 100m,
+                Currency = "EUR"
+            };
+
+            // Act & Assert
+            Assert.Throws<DomainException>(() => _service.CreateProduct(request));
+        }
+
+        [Fact]
+        public void ChangePrice_Should_Throw_When_NewPrice_Is_Negative()
+        {
+            // Arrange
+            var product = new Product("Test Product", new Price(100m, "EUR"));
+            _fakeRepo.Seed(product);
+            var request = new ChangePriceRequest { NewPrice = -50m };
+
+            // Act & Assert
+            Assert.Throws<DomainException>(() => _service.ChangePrice(product.Id, request));
+        }
+
+        [Fact]
+        public void DeleteProduct_Should_Not_Crash_When_Product_Not_Found()
+        {
+            // Arrange
+            var nonExistentId = Guid.NewGuid();
+
+            // Act - should not throw
+            _service.DeleteProduct(nonExistentId);
+
+            // Assert - verify repo is still empty
+            Assert.Equal(0, _fakeRepo.Count);
+        }
     }
 }
