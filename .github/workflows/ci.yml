@@ -1,4 +1,4 @@
-name: CI/CD - Build, Test & Deploy Docs
+name: CI/CD - Build, Test, SonarCloud & Deploy Docs
 
 on:
   push:
@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   # ===========================================
-  # JOB 1: Build & Test .NET
+  # JOB 1: Build, Test & SonarCloud Analysis
   # ===========================================
   build-and-test:
     runs-on: ubuntu-latest
@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for SonarCloud
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -32,22 +34,42 @@ jobs:
           dotnet-version: "10.0.x"
           dotnet-quality: "preview"
 
+      - name: Install SonarCloud scanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Install coverage tool
+        run: dotnet tool install --global dotnet-coverage
+
       - name: Restore dependencies
         run: dotnet restore
+
+      - name: Begin SonarCloud analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          dotnet sonarscanner begin \
+            /k:"HugoRytlewski_AdvancedDevSampleFinal" \
+            /o:"hugorytlewski" \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
 
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
-      - name: Run tests
-        run: dotnet test --no-build --configuration Release --verbosity normal
+      - name: Run tests with coverage
+        run: dotnet-coverage collect "dotnet test --no-build --configuration Release" -f xml -o coverage.xml
+
+      - name: End SonarCloud analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: Generate Swagger JSON
         run: |
           cd AdvancedDevSample.Api
           dotnet build
-          # Install swagger CLI tool
           dotnet tool install -g Swashbuckle.AspNetCore.Cli || true
-          # Generate swagger.json
           dotnet swagger tofile --output ../docs/swagger.json bin/Debug/net10.0/AdvancedDevSample.Api.dll v1 || echo "Swagger generation skipped"
 
   # ===========================================
