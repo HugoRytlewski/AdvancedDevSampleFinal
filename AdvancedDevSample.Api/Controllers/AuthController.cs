@@ -56,7 +56,10 @@ namespace AdvancedDevSample.Api.Controllers
 
         private string GenerateJwtToken(string username)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? "votre-cle-super-secrete-de-32-caracteres-minimum"));
+            var jwtKey = _configuration["Jwt:Key"] 
+                ?? throw new InvalidOperationException("JWT Key is not configured. Please set Jwt:Key in appsettings.json");
+            
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]

@@ -1,0 +1,82 @@
+:root {
+  --md-primary-fg-color: #7c3aed;
+  --md-accent-fg-color: #06b6d4;
+}
+
+/* Cards style */
+.md-typeset .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.md-typeset .card {
+  background: var(--md-code-bg-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.md-typeset .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.md-typeset .card h3 {
+  margin-top: 0;
+  color: var(--md-accent-fg-color);
+}
+
+/* Metric badges */
+.md-typeset .metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--md-code-bg-color);
+  border-radius: 20px;
+  font-weight: 500;
+  margin: 0.25rem;
+}
+
+.md-typeset .metric-success {
+  border-left: 3px solid #10b981;
+}
+
+.md-typeset .metric-warning {
+  border-left: 3px solid #f59e0b;
+}
+
+.md-typeset .metric-error {
+  border-left: 3px solid #ef4444;
+}
+
+/* Table improvements */
+.md-typeset table:not([class]) {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--md-primary-fg-color);
+  color: white;
+  font-weight: 600;
+}
+
+/* Code block improvements */
+.md-typeset pre {
+  border-radius: 8px;
+}
+
+/* Header gradient */
+.md-header {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
