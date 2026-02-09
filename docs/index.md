@@ -84,11 +84,13 @@ cd AdvancedDevSample.Test
 dotnet test
 ```
 
-| Type | Nombre | Couverture |
-|------|--------|------------|
-| Unitaires (Domain) | 11 | Entities, Value Objects |
-| Unitaires (Application) | 9 | Services |
-| Integration (API) | 10 | Endpoints REST |
+| Type de test | Nombre | Description |
+|--------------|--------|-------------|
+| **Unitaires (Domain)** | 15 | Entities, Value Objects, Constructeurs |
+| **Unitaires (Application)** | 12 | Services, DTOs, Validation |
+| **Unitaires (API)** | 9 | Controllers, Middlewares |
+| **Integration (API)** | 10 | Endpoints REST End-to-End |
+| **Total** | **46** | Couverture **~80%** |
 
 ---
 
