@@ -93,5 +93,8 @@ extra:
       link: https://github.com/HugoRytlewski/AdvancedDevSampleFinal
   generator: false
 
+extra_javascript:
+  - https://unpkg.com/mermaid@11.12.2/dist/mermaid.min.js
+
 extra_css:
   - stylesheets/extra.css

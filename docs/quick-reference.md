@@ -1,6 +1,6 @@
 # Quick Reference
 
-Reference rapide des commandes, endpoints et structures essentielles.
+Référence rapide des commandes, endpoints et structures essentielles.
 
 ---
 
@@ -35,7 +35,7 @@ dotnet-coverage collect "dotnet test" -f xml -o coverage.xml
 # Tests avec verbosity
 dotnet test --verbosity detailed
 
-# Tests d'un projet specifique
+# Tests d'un projet spécifique
 cd AdvancedDevSample.Test
 dotnet test
 ```
@@ -62,7 +62,7 @@ https://localhost:5001
 
 ### Authentification
 
-| Methode | Endpoint | Description |
+| Méthode | Endpoint | Description |
 |---------|----------|-------------|
 | `POST` | `/api/auth/login` | Obtenir un token JWT |
 
@@ -85,13 +85,13 @@ https://localhost:5001
 
 ### Produits
 
-> Tous les endpoints produits necessitent un token JWT valide.
+> Tous les endpoints produits nécessitent un token JWT valide.
 
-| Methode | Endpoint | Description |
+| Méthode | Endpoint | Description |
 |---------|----------|-------------|
 | `GET` | `/api/products` | Liste tous les produits |
-| `GET` | `/api/products/{id}` | Details d'un produit |
-| `POST` | `/api/products` | Creer un produit |
+| `GET` | `/api/products/{id}` | Détails d'un produit |
+| `POST` | `/api/products` | Créer un produit |
 | `PUT` | `/api/products/{id}/price` | Modifier le prix |
 | `DELETE` | `/api/products/{id}` | Supprimer (soft delete) |
 
@@ -144,10 +144,10 @@ https://localhost:5001
 
 | Code | Signification | Quand? |
 |------|---------------|--------|
-| **200** | OK | Requete reussie (GET) |
-| **201** | Created | Ressource creee (POST) |
-| **204** | No Content | Modification/Suppression reussie |
-| **400** | Bad Request | Donnees invalides |
+| **200** | OK | Requête réussie (GET) |
+| **201** | Created | Ressource créée (POST) |
+| **204** | No Content | Modification/Suppression réussie |
+| **400** | Bad Request | Données invalides |
 | **401** | Unauthorized | Token manquant ou invalide |
 | **404** | Not Found | Ressource introuvable |
 | **500** | Internal Server Error | Erreur serveur |
@@ -176,7 +176,7 @@ https://localhost:5001
 
 ---
 
-## Architecture en 1 coup d'oeil
+## Architecture en 1 coup d'œil
 
 ```
 Client

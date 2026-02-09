@@ -1,14 +1,14 @@
 # Examples
 
-Scenarios pratiques et exemples complets pour utiliser l'API.
+Scénarios pratiques et exemples complets pour utiliser l'API.
 
 ---
 
-## Scenario 1 : CRUD complet d'un produit
+## Scénario 1 : CRUD complet d'un produit
 
-### Etape 1 : Authentification
+### Étape 1 : Authentification
 
-**Requete :**
+**Requête :**
 
 ```bash
 curl -X POST https://localhost:5001/api/auth/login \
@@ -19,7 +19,7 @@ curl -X POST https://localhost:5001/api/auth/login \
   }'
 ```
 
-**Reponse (200 OK) :**
+**Réponse (200 OK) :**
 
 ```json
 {
@@ -32,9 +32,9 @@ curl -X POST https://localhost:5001/api/auth/login \
 
 ---
 
-### Etape 2 : Creer un produit
+### Étape 2 : Créer un produit
 
-**Requete :**
+**Requête :**
 
 ```bash
 curl -X POST https://localhost:5001/api/products \
@@ -47,7 +47,7 @@ curl -X POST https://localhost:5001/api/products \
   }'
 ```
 
-**Reponse (201 Created) :**
+**Réponse (201 Created) :**
 
 ```json
 {
@@ -61,16 +61,16 @@ curl -X POST https://localhost:5001/api/products \
 
 ---
 
-### Etape 3 : Consulter tous les produits
+### Étape 3 : Consulter tous les produits
 
-**Requete :**
+**Requête :**
 
 ```bash
 curl -X GET https://localhost:5001/api/products \
   -H "Authorization: Bearer VOTRE_TOKEN"
 ```
 
-**Reponse (200 OK) :**
+**Réponse (200 OK) :**
 
 ```json
 [
@@ -86,9 +86,9 @@ curl -X GET https://localhost:5001/api/products \
 
 ---
 
-### Etape 4 : Modifier le prix
+### Étape 4 : Modifier le prix
 
-**Requete :**
+**Requête :**
 
 ```bash
 curl -X PUT https://localhost:5001/api/products/3fa85f64-5717-4562-b3fc-2c963f66afa6/price \
@@ -99,20 +99,20 @@ curl -X PUT https://localhost:5001/api/products/3fa85f64-5717-4562-b3fc-2c963f66
   }'
 ```
 
-**Reponse (204 No Content)**
+**Réponse (204 No Content)**
 
 ---
 
-### Etape 5 : Verifier la modification
+### Étape 5 : Vérifier la modification
 
-**Requete :**
+**Requête :**
 
 ```bash
 curl -X GET https://localhost:5001/api/products/3fa85f64-5717-4562-b3fc-2c963f66afa6 \
   -H "Authorization: Bearer VOTRE_TOKEN"
 ```
 
-**Reponse (200 OK) :**
+**Réponse (200 OK) :**
 
 ```json
 {
@@ -126,33 +126,33 @@ curl -X GET https://localhost:5001/api/products/3fa85f64-5717-4562-b3fc-2c963f66
 
 ---
 
-### Etape 6 : Supprimer le produit
+### Étape 6 : Supprimer le produit
 
-**Requete :**
+**Requête :**
 
 ```bash
 curl -X DELETE https://localhost:5001/api/products/3fa85f64-5717-4562-b3fc-2c963f66afa6 \
   -H "Authorization: Bearer VOTRE_TOKEN"
 ```
 
-**Reponse (204 No Content)**
+**Réponse (204 No Content)**
 
-Le produit est maintenant desactive (`isActive: false`).
+Le produit est maintenant désactivé (`isActive: false`).
 
 ---
 
-## Scenario 2 : Gestion des erreurs
+## Scénario 2 : Gestion des erreurs
 
 ### Erreur 401 : Token invalide
 
-**Requete :**
+**Requête :**
 
 ```bash
 curl -X GET https://localhost:5001/api/products \
   -H "Authorization: Bearer TOKEN_INVALIDE"
 ```
 
-**Reponse (401 Unauthorized) :**
+**Réponse (401 Unauthorized) :**
 
 ```json
 {
@@ -162,7 +162,7 @@ curl -X GET https://localhost:5001/api/products \
 }
 ```
 
-**Solution :** Regenerez un token via `/api/auth/login`.
+**Solution :** Régénérez un token via `/api/auth/login`.
 
 ---
 
@@ -181,7 +181,7 @@ curl -X POST https://localhost:5001/api/products \
   }'
 ```
 
-**Reponse (400 Bad Request) :**
+**Réponse (400 Bad Request) :**
 
 ```json
 {
@@ -201,7 +201,7 @@ curl -X GET https://localhost:5001/api/products/00000000-0000-0000-0000-00000000
   -H "Authorization: Bearer VOTRE_TOKEN"
 ```
 
-**Reponse (404 Not Found) :**
+**Réponse (404 Not Found) :**
 
 ```json
 {
@@ -310,7 +310,7 @@ Importez cette collection pour tester facilement :
 1. Ouvrir Postman
 2. Cliquer sur "Import"
 3. Coller le JSON ci-dessus
-4. Creer une variable `token` dans l'environnement
+4. Créer une variable `token` dans l'environnement
 
 ---
 

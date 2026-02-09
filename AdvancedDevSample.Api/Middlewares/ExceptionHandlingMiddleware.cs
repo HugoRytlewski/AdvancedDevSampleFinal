@@ -54,7 +54,7 @@ namespace AdvancedDevSample.Api.Middlewares
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erreur innatendue.");
+                _logger.LogError(ex, "Erreur inattendue.");
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsJsonAsync(

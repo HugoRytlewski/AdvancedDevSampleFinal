@@ -1,24 +1,24 @@
 # Getting Started
 
-Guide complet pour installer et demarrer le projet AdvancedDevSample.
+Guide complet pour installer et démarrer le projet AdvancedDevSample.
 
 ---
 
-## Prerequis
+## Prérequis
 
-Avant de commencer, assurez-vous d'avoir installe :
+Avant de commencer, assurez-vous d'avoir installé :
 
 | Logiciel | Version minimale | Lien |
 |----------|-----------------|------|
-| **.NET SDK** | 10.0 | [Telecharger](https://dotnet.microsoft.com/download) |
-| **Git** | 2.0+ | [Telecharger](https://git-scm.com/) |
+| **.NET SDK** | 10.0 | [Télécharger](https://dotnet.microsoft.com/download) |
+| **Git** | 2.0+ | [Télécharger](https://git-scm.com/) |
 | **IDE** | Visual Studio 2024 / VS Code / Rider | Au choix |
 
-**Verification :**
+**Vérification :**
 
 ```bash
 dotnet --version  # Doit afficher 10.0.x
-git --version     # Doit afficher 2.x ou superieur
+git --version     # Doit afficher 2.x ou supérieur
 ```
 
 ---
@@ -32,7 +32,7 @@ git clone https://github.com/HugoRytlewski/AdvancedDevSampleFinal.git
 cd AdvancedDevSampleFinal
 ```
 
-### 2. Restaurer les dependances
+### 2. Restaurer les dépendances
 
 ```bash
 dotnet restore
@@ -40,7 +40,7 @@ dotnet restore
 
 ### 3. Configurer JWT
 
-Creer ou modifier `appsettings.json` dans `AdvancedDevSample.Api/` :
+Créer ou modifier `appsettings.json` dans `AdvancedDevSample.Api/` :
 
 ```json
 {
@@ -58,7 +58,7 @@ Creer ou modifier `appsettings.json` dans `AdvancedDevSample.Api/` :
 ```
 
 > [!IMPORTANT]
-> La cle JWT doit faire au moins **32 caracteres** pour HMAC SHA256.
+> La clé JWT doit faire au moins **32 caractères** pour HMAC SHA256.
 
 ---
 
@@ -73,7 +73,7 @@ dotnet build
 **Sortie attendue :**
 
 ```
-La generation a reussi.
+La génération a réussi.
     0 Erreur(s)
 ```
 
@@ -86,7 +86,7 @@ dotnet test
 **Sortie attendue :**
 
 ```
-Reussi!  - echec : 0, reussite : 46, total : 46
+Réussi!  - échec : 0, réussite : 46, total : 46
 ```
 
 ### 3. Lancer l'API
@@ -107,7 +107,7 @@ info: Microsoft.Hosting.Lifetime[14]
 
 ## Premier test avec Swagger
 
-### 1. Acceder a Swagger UI
+### 1. Accéder à Swagger UI
 
 Ouvrez votre navigateur : **[https://localhost:5001/swagger](https://localhost:5001/swagger)**
 
@@ -125,7 +125,7 @@ Ouvrez votre navigateur : **[https://localhost:5001/swagger](https://localhost:5
 ```
 
 4. Cliquez sur "Execute"
-5. **Copiez le token** dans la reponse
+5. **Copiez le token** dans la réponse
 
 ### 3. Configurer l'authentification
 
@@ -133,11 +133,11 @@ Ouvrez votre navigateur : **[https://localhost:5001/swagger](https://localhost:5
 2. Entrez : `Bearer VOTRE_TOKEN` (coller le token)
 3. Cliquez sur "Authorize"
 
-### 4. Tester un endpoint protege
+### 4. Tester un endpoint protégé
 
 1. Cliquez sur **GET /api/products**
 2. Cliquez sur "Try it out" → "Execute"
-3. Vous devriez recevoir une reponse **200 OK**
+3. Vous devriez recevoir une réponse **200 OK**
 
 ---
 
@@ -155,19 +155,19 @@ AdvancedDevSampleFinal/
 │   ├── DTOs/                       # Data Transfer Objects
 │   └── Services/                   # Logique applicative
 │
-├── AdvancedDevSampleDomain/        # Coeur metier
+├── AdvancedDevSampleDomain/        # Coeur métier
 │   ├── Entities/                   # Product
-│   ├── ValueObjects/               # Price
+│   ├── ValueObjects/                   # Price
 │   ├── Interfaces/                 # IProductRepository
-│   └── Exceptions/                 # Exceptions metier
+│   └── Exceptions/                 # Exceptions métier
 │
 ├── AdvancedDevSample.Infrastructure/
-│   └── Repositories/               # Implementation repositories
+│   └── Repositories/               # Implémentation repositories
 │
 ├── AdvancedDevSample.Test/         # Tests (46 tests)
-│   ├── API/                        # Tests d'integration
+│   ├── API/                        # Tests d'intégration
 │   ├── Application/                # Tests services
-│   └── Domain/                     # Tests entites
+│   └── Domain/                     # Tests entités
 │
 ├── docs/                           # Documentation MkDocs
 └── .github/workflows/              # CI/CD GitHub Actions
@@ -179,11 +179,11 @@ AdvancedDevSampleFinal/
 
 ### Erreur : "JWT Key is not configured"
 
-**Solution :** Verifiez que `appsettings.json` contient la cle JWT (voir etape 3 de l'installation).
+**Solution :** Vérifiez que `appsettings.json` contient la clé JWT (voir étape 3 de l'installation).
 
 ### Erreur : "Unable to bind to https://localhost:5001"
 
-**Solution :** Le port est deja utilise.
+**Solution :** Le port est déjà utilisé.
 
 ```bash
 # Modifier le port dans launchSettings.json
@@ -194,9 +194,9 @@ kill -9 <PID>
 
 ### Erreur : "Unauthorized" sur tous les endpoints
 
-**Solution :** Verifiez que vous avez bien clique sur "Authorize" dans Swagger et entre le token avec le prefixe `Bearer `.
+**Solution :** Vérifiez que vous avez bien cliqué sur "Authorize" dans Swagger et entré le token avec le préfixe `Bearer `.
 
-### Les tests echouent
+### Les tests échouent
 
 **Solution :**
 
@@ -209,7 +209,7 @@ dotnet test
 
 ---
 
-## Prochaines etapes
+## Prochaines étapes
 
 <div class="grid" markdown>
 
