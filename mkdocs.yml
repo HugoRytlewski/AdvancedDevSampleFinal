@@ -71,9 +71,21 @@ markdown_extensions:
 
 nav:
   - Accueil: index.md
-  - API Reference: api.md
-  - Architecture: architecture.md
-  - Qualite du Code: sonarcloud.md
+  - Getting Started: getting-started.md
+  - API:
+      - Reference: api.md
+      - Examples: examples.md
+  - Architecture:
+      - Overview: architecture.md
+      - Decisions (ADR): adr.md
+  - Qualite:
+      - SonarCloud: sonarcloud.md
+      - Security: security.md
+      - Performance: performance.md
+  - Guides:
+      - Contributing: contributing.md
+      - Quick Reference: quick-reference.md
+      - Troubleshooting: troubleshooting.md
 
 extra:
   social:
