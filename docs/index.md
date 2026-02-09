@@ -98,9 +98,9 @@ dotnet test
 
 Le projet integre **SonarCloud** pour l'analyse continue.
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=HugoRytlewski_AdvancedDevSampleFinal&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=HugoRytlewski_AdvancedDevSampleFinal)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=HugoRytlewski_AdvancedDevSampleFinal&metric=coverage)](https://sonarcloud.io/summary/new_code?id=HugoRytlewski_AdvancedDevSampleFinal)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=HugoRytlewski_AdvancedDevSampleFinal&metric=bugs)](https://sonarcloud.io/summary/new_code?id=HugoRytlewski_AdvancedDevSampleFinal)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=HugoRytlewski_AdvancedDevSampleFinal&metric=alert_status&token=229cc30d3067cefd82d4841a3e3b8bb079de8afb)](https://sonarcloud.io/summary/new_code?id=HugoRytlewski_AdvancedDevSampleFinal)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=HugoRytlewski_AdvancedDevSampleFinal&metric=coverage&token=229cc30d3067cefd82d4841a3e3b8bb079de8afb)](https://sonarcloud.io/summary/new_code?id=HugoRytlewski_AdvancedDevSampleFinal)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=HugoRytlewski_AdvancedDevSampleFinal&metric=bugs&token=229cc30d3067cefd82d4841a3e3b8bb079de8afb)](https://sonarcloud.io/summary/new_code?id=HugoRytlewski_AdvancedDevSampleFinal)
 
 [Voir le rapport complet](sonarcloud.md){ .md-button .md-button--primary }
 
