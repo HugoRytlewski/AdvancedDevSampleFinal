@@ -59,7 +59,10 @@ namespace AdvancedDevSample.Api.Controllers
             var jwtKey = _configuration["Jwt:Key"] 
                 ?? throw new InvalidOperationException("JWT Key is not configured. Please set Jwt:Key in appsettings.json");
             
+            // SonarCloud: Key is loaded from configuration, not hardcoded
+#pragma warning disable S6781
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+#pragma warning restore S6781
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]

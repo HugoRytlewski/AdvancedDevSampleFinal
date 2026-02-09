@@ -2,11 +2,47 @@
 
 Documentation complete des endpoints de l'API AdvancedDevSample.
 
+## Vue d'ensemble
+
+```mermaid
+graph LR
+    subgraph Auth["Authentification"]
+        Login[POST /api/auth/login]
+    end
+    
+    subgraph Products["Produits"]
+        GetAll[GET /api/products]
+        GetById[GET /api/products/{id}]
+        Create[POST /api/products]
+        ChangePrice[PUT /api/products/{id}/price]
+        Delete[DELETE /api/products/{id}]
+    end
+    
+    Login --> |JWT Token| Products
+```
+
+---
+
 ## Authentification
 
 ### POST /api/auth/login
 
-Authentifie un utilisateur et retourne un token JWT.
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Auth
+    participant JWT
+    
+    Client->>Auth: POST /login {username, password}
+    Auth->>Auth: Validation credentials
+    alt Credentials valides
+        Auth->>JWT: Generation token
+        JWT-->>Auth: Token JWT
+        Auth-->>Client: 200 {token}
+    else Credentials invalides
+        Auth-->>Client: 401 Unauthorized
+    end
+```
 
 **Request Body:**
 
@@ -23,14 +59,6 @@ Authentifie un utilisateur et retourne un token JWT.
 |------|-------------|
 | 200 | Authentification reussie, retourne le token |
 | 401 | Identifiants incorrects |
-
-**Exemple de reponse (200):**
-
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
 
 ---
 
@@ -87,7 +115,26 @@ Recupere un produit par son identifiant.
 
 ### POST /api/products
 
-Cree un nouveau produit.
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API
+    participant Service
+    participant Domain
+    
+    Client->>API: POST {name, price, currency}
+    API->>Service: CreateProduct(request)
+    Service->>Domain: new Product(name, price)
+    alt Donnees valides
+        Domain-->>Service: Product cree
+        Service-->>API: Product ID
+        API-->>Client: 201 Created
+    else Donnees invalides
+        Domain-->>Service: DomainException
+        Service-->>API: Exception
+        API-->>Client: 400 Bad Request
+    end
+```
 
 **Request Body:**
 
@@ -134,7 +181,7 @@ Modifie le prix d'un produit existant.
 
 ### DELETE /api/products/{id}
 
-Supprime un produit.
+Supprime un produit (soft delete).
 
 **Responses:**
 
@@ -145,15 +192,18 @@ Supprime un produit.
 
 ---
 
-## Swagger UI
-
-Pour une documentation interactive, accedez a Swagger UI une fois l'API lancee :
-
-```
-https://localhost:5001/swagger
-```
-
 ## Codes d'erreur
+
+```mermaid
+flowchart TD
+    Request[Requete HTTP] --> Auth{Token JWT?}
+    Auth -->|Non| E401[401 Unauthorized]
+    Auth -->|Oui| Validation{Donnees valides?}
+    Validation -->|Non| E400[400 Bad Request]
+    Validation -->|Oui| Exists{Ressource existe?}
+    Exists -->|Non| E404[404 Not Found]
+    Exists -->|Oui| Success[200/201/204 Success]
+```
 
 | Code HTTP | Signification | Action recommandee |
 |-----------|---------------|-------------------|
@@ -161,3 +211,13 @@ https://localhost:5001/swagger
 | 401 | Unauthorized | Verifier le token JWT |
 | 404 | Not Found | Verifier l'identifiant |
 | 500 | Server Error | Contacter l'administrateur |
+
+---
+
+## Swagger UI
+
+Pour une documentation interactive, accedez a Swagger UI une fois l'API lancee :
+
+```
+https://localhost:5001/swagger
+```

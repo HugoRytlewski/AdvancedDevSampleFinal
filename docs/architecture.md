@@ -6,106 +6,165 @@ Vue d'ensemble de l'architecture du projet AdvancedDevSample.
 
 Le projet suit une **architecture hexagonale** (Clean Architecture) avec separation claire des responsabilites.
 
+```mermaid
+graph TB
+    subgraph Presentation["Couche Presentation"]
+        API[API Controllers]
+        Swagger[Swagger UI]
+        Middleware[Middlewares]
+    end
+    
+    subgraph Application["Couche Application"]
+        Services[Services Applicatifs]
+        DTOs[DTOs]
+    end
+    
+    subgraph Domain["Couche Domaine"]
+        Entities[Entites]
+        ValueObjects[Value Objects]
+        Interfaces[Interfaces Repository]
+        DomainExceptions[Exceptions Domaine]
+    end
+    
+    subgraph Infrastructure["Couche Infrastructure"]
+        Repositories[Repositories]
+        Database[(Base de donnees)]
+    end
+    
+    API --> Services
+    Services --> Entities
+    Services --> Interfaces
+    Repositories --> Interfaces
+    Repositories --> Database
+```
+
+## Structure des fichiers
+
 ```
 AdvancedDevSample/
-├── AdvancedDevSample.Api/           # Couche Presentation
-├── AdvancedDevSample.Application/   # Couche Application
-├── AdvancedDevSample.Domain/        # Couche Domaine
-├── AdvancedDevSample.Infrastructure/# Couche Infrastructure
-└── AdvancedDevSample.Test/          # Tests
+|-- Api/              # Controllers, Swagger, JWT
+|-- Application/      # DTOs, Services
+|-- Domain/           # Entities, Value Objects
+|-- Infrastructure/   # Repositories, EF Core
+|-- Test/             # Unit & Integration Tests
 ```
-
-## Couches
-
-### Api (Presentation)
-
-**Responsabilites:**
-
-- Exposition des endpoints REST
-- Configuration Swagger/OpenAPI
-- Authentification JWT
-- Middleware de gestion des erreurs
-
-**Fichiers cles:**
-
-- `Controllers/` - Controleurs REST
-- `Program.cs` - Configuration de l'application
-- `Middlewares/` - Middleware personnalises
-
----
-
-### Application
-
-**Responsabilites:**
-
-- DTOs (Data Transfer Objects)
-- Services applicatifs
-- Orchestration des cas d'utilisation
-
-**Fichiers cles:**
-
-- `DTOs/` - Objets de transfert de donnees
-- `Services/` - Services applicatifs
-
----
-
-### Domain
-
-**Responsabilites:**
-
-- Entites metier
-- Value Objects
-- Regles de domaine (invariants)
-- Interfaces de repository
-
-**Fichiers cles:**
-
-- `Entities/Product.cs` - Entite Produit
-- `ValueObjects/Price.cs` - Value Object Prix
-- `Interfaces/` - Contrats de repository
-- `Exceptions/` - Exceptions metier
-
----
-
-### Infrastructure
-
-**Responsabilites:**
-
-- Implementation des repositories
-- Acces aux donnees (Entity Framework)
-- Services externes
-
----
-
-### Test
-
-**Types de tests:**
-
-| Type | Dossier | Description |
-|------|---------|-------------|
-| Unitaires | `Domain/` | Tests des entites et value objects |
-| Unitaires | `Application/` | Tests des services avec fakes |
-| Integration | `API/Integration/` | Tests des endpoints avec WebApplicationFactory |
 
 ---
 
 ## Flux d'une requete
 
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Middleware
+    participant Controller
+    participant Service
+    participant Repository
+    participant Database
+    
+    Client->>Middleware: HTTP Request
+    Middleware->>Middleware: JWT Validation
+    Middleware->>Controller: Request validee
+    Controller->>Service: Appel service
+    Service->>Repository: Acces donnees
+    Repository->>Database: Query
+    Database-->>Repository: Resultat
+    Repository-->>Service: Entite
+    Service-->>Controller: DTO
+    Controller-->>Client: HTTP Response
 ```
-HTTP Request
-    |
-[Middleware Auth JWT]
-    |
-[Controller]
-    |
-[ProductService]
-    |
-[IProductRepository]
-    |
-[EfProductRepository]
-    |
-Database
+
+---
+
+## Cycle de vie d'un produit
+
+```mermaid
+stateDiagram-v2
+    [*] --> Created: POST /api/products
+    Created --> Active: Etat initial
+    Active --> PriceChanged: PUT /api/products/{id}/price
+    PriceChanged --> Active: Nouveau prix applique
+    Active --> Inactive: DELETE /api/products/{id}
+    Inactive --> [*]: Soft Delete
 ```
+
+---
+
+## Diagramme de classes (Domain)
+
+```mermaid
+classDiagram
+    class Product {
+        +Guid Id
+        +string Name
+        +Price Price
+        +bool IsActive
+        +ChangePrice(Price newPrice)
+        +ChangePrice(decimal newPriceValue)
+        +Deactivate()
+        +Activate()
+    }
+    
+    class Price {
+        +decimal Value
+        +string Currency
+        +Price(decimal value, string currency)
+    }
+    
+    class IProductRepository {
+        <<interface>>
+        +Save(Product product)
+        +GetById(Guid id) Product?
+        +GetAll() IEnumerable~Product~
+        +Delete(Guid id)
+    }
+    
+    class DomainException {
+        +string Message
+    }
+    
+    Product --> Price : contient
+    Product ..> DomainException : lance
+```
+
+---
+
+## Pipeline CI/CD
+
+```mermaid
+flowchart LR
+    subgraph Trigger["Declencheur"]
+        Push[Push main]
+        PR[Pull Request]
+    end
+    
+    subgraph Build["Build & Test"]
+        Restore[Restore]
+        Compile[Build]
+        Test[Tests]
+    end
+    
+    subgraph Analysis["Analyse"]
+        Sonar[SonarCloud]
+        Coverage[Couverture]
+    end
+    
+    subgraph Deploy["Deploiement"]
+        MkDocs[Build MkDocs]
+        Pages[GitHub Pages]
+    end
+    
+    Push --> Restore
+    PR --> Restore
+    Restore --> Compile
+    Compile --> Test
+    Test --> Sonar
+    Sonar --> Coverage
+    Coverage --> MkDocs
+    MkDocs --> Pages
+```
+
+---
 
 ## Principes SOLID
 
@@ -117,9 +176,9 @@ Database
 | **I** - Interface Segregation | Interfaces specifiques et focalisees | `IProductRepository` vs interface generique |
 | **D** - Dependency Inversion | Dependre des abstractions | Injection de `IProductRepository` |
 
-## Clean Code
+---
 
-### Regles appliquees
+## Regles Clean Code
 
 | Regle | Description |
 |-------|-------------|
@@ -129,7 +188,9 @@ Database
 | Pas de commentaires inutiles | Le code s'auto-documente |
 | Gestion des erreurs | Exceptions specifiques au domaine |
 
-### Metriques de qualite (SonarCloud)
+---
+
+## Metriques de qualite (SonarCloud)
 
 | Metrique | Objectif |
 |----------|----------|
@@ -139,13 +200,3 @@ Database
 | Vulnerabilites | 0 |
 | Dette technique | < 1 jour |
 | Duplications | < 3% |
-
-## CI/CD Pipeline
-
-| Etape | Outil | Description |
-|-------|-------|-------------|
-| Build | .NET SDK | Compilation du projet |
-| Tests | xUnit | Execution des tests unitaires et integration |
-| Analyse | SonarCloud | Analyse statique du code |
-| Documentation | MkDocs | Generation de la documentation |
-| Deploiement | GitHub Pages | Publication de la documentation |
