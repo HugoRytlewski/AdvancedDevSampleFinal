@@ -1,0 +1,59 @@
+site_name: AdvancedDevSample API Documentation
+site_description: Documentation technique de l'API AdvancedDevSample
+site_author: Hugo Rytlewski
+site_url: https://hugorytlewski.github.io/AdvancedDevSample/
+
+repo_name: HugoRytlewski/AdvancedDevSample
+repo_url: https://github.com/HugoRytlewski/AdvancedDevSample
+
+theme:
+  name: material
+  language: fr
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Basculer en mode sombre
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Basculer en mode clair
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - tables
+  - attr_list
+  - md_in_html
+
+nav:
+  - Accueil: index.md
+  - API Reference: api.md
+  - Architecture: architecture.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/HugoRytlewski/AdvancedDevSample
