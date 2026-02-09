@@ -6,16 +6,16 @@ Documentation complete des endpoints de l'API AdvancedDevSample.
 
 ```mermaid
 graph LR
-    subgraph Auth["Authentification"]
-        Login[POST /api/auth/login]
+    subgraph Auth
+        Login
     end
     
-    subgraph Products["Produits"]
-        GetAll[GET /api/products]
-        GetById[GET /api/products/{id}]
-        Create[POST /api/products]
-        ChangePrice[PUT /api/products/{id}/price]
-        Delete[DELETE /api/products/{id}]
+    subgraph Products
+        GetAll
+        GetById
+        Create
+        ChangePrice
+        Delete
     end
     
     Login --> |JWT Token| Products
