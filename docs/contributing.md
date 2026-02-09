@@ -49,10 +49,64 @@ Suivez les [standards de code](#standards-de-code) decrits ci-dessous.
 
 **Types de tests :**
 
+### Stratégie de Tests
+
+Nous utilisons deux outils complémentaires pour garantir la qualité du projet :
+
+| Outil | Type | Objectif | Quand l'utiliser ? |
+|-------|------|----------|--------------------|
+| **xUnit** | Fonctionnel | Vérifier que le code *marche* (logique métier, règles) | Au développement de chaque feature |
+| **k6** | Performance | Vérifier que le code *tient la charge* (vitesse, stabilité) | Avant une release ou sur CI/CD |
+
+#### 1. Tests Fonctionnels (xUnit)
+
+C'est la base de la pyramide de tests. Ils s'exécutent rapidement et valident la logique interne.
+
 - **Unitaires (Domain)** : Tester les entités et value objects
 - **Unitaires (Application)** : Tester les services
 - **Unitaires (API)** : Tester les controllers et middlewares
 - **Intégration** : Tester les endpoints end-to-end
+
+#### 2. Tests de Charge (k6)
+
+Simulez des utilisateurs réels pour détecter les goulots d'étranglement.
+
+- **Load Testing** : Simuler 50 utilisateurs simultanés
+- **Stress Testing** : Trouver le point de rupture
+- **Spike Testing** : Tester les pics de trafic
+
+---
+
+### Exemples d'implémentation
+
+#### xUnit (Logique)
+
+```csharp
+[Fact]
+public void Login_WithValidCredentials_ReturnsToken()
+{
+    // Vérifie que si j'envoie "admin", je reçois un token
+    var result = _controller.Login(request);
+    Assert.NotNull(result.Token);
+}
+```
+
+#### k6 (Performance)
+
+```javascript
+export default function() {
+    // Vérifie que si 50 personnes se connectent, ça prend < 200ms
+    let res = http.post('https://api/login', payload);
+    check(res, { 'status is 200': (r) => r.status === 200 });
+}
+```
+
+---
+
+### Résumé pour les contributeurs
+
+1. **J'ajoute une règle métier ?** → J'écris un test **xUnit**.
+2. **J'optimise une requête lente ?** → Je vérifie avec **k6**.
 
 **Exemple :**
 
