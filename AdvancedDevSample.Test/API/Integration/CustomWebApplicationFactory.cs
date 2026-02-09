@@ -23,7 +23,7 @@ namespace AdvancedDevSample.Api.Tests.Integration
             builder.ConfigureServices(services =>
             {
                 // Remove existing repository registrations
-                services.RemoveAll(typeof(IProductRepository));
+                services.RemoveAll<IProductRepository>();
 
                 // Add in-memory repository as singleton for test isolation
                 services.AddSingleton<IProductRepository, InMemoryProductRepositoryAsync>();

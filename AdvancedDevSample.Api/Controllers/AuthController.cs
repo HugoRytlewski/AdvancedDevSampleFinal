@@ -40,7 +40,7 @@ namespace AdvancedDevSample.Api.Controllers
         /// <response code="200">Authentification réussie. Retourne le token JWT.</response>
         /// <response code="401">Identifiants incorrects.</response>
         [HttpPost("login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType<object>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult Login([FromBody] LoginRequest request)
         {

@@ -47,7 +47,7 @@ namespace AdvancedDevSample.Api.Controllers
         /// <response code="400">Données invalides (prix négatif, nom vide, etc.).</response>
         /// <response code="401">Non autorisé.</response>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType<object>(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult Create([FromBody] CreateProductRequest request)
