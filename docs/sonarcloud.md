@@ -1,10 +1,10 @@
-# Qualite du Code
+# Qualité du Code
 
-Analyse statique et metriques de qualite du projet AdvancedDevSample.
+Analyse statique et métriques de qualité du projet AdvancedDevSample.
 
 ## SonarCloud
 
-Le projet utilise **SonarCloud** pour l'analyse continue de la qualite du code.
+Le projet utilise **SonarCloud** pour l'analyse continue de la qualité du code.
 
 ### Dashboard
 
@@ -14,7 +14,7 @@ Le projet utilise **SonarCloud** pour l'analyse continue de la qualite du code.
 
 ### Lien direct
 
-Accedez au rapport complet sur SonarCloud :
+Accédez au rapport complet sur SonarCloud :
 
 **[Voir le Dashboard SonarCloud](https://sonarcloud.io/project/overview?id=HugoRytlewski_AdvancedDevSampleFinal)**
 
@@ -38,15 +38,15 @@ Accedez au rapport complet sur SonarCloud :
 
 ---
 
-## Metriques analysees
+## Métriques analysées
 
-| Metrique | Valeur actuelle | Objectif |
+| Métrique | Valeur actuelle | Objectif |
 |----------|----------------|----------|
 | **Quality Gate** | Passed | Passed |
 | **Tests** | 46 | Maintenus |
 | **Coverage** | ~80% | > 80% |
 | **Bugs** | 0 | 0 |
-| **Vulnerabilities** | 0 | 0 |
+| **Vulnérabilités** | 0 | 0 |
 | **Code Smells** | Minimaux | < 10 |
 | **Duplications** | Minimales | < 3% |
 | **Technical Debt** | < 1h | < 1 jour |
@@ -77,10 +77,10 @@ graph LR
 | **Unitaires (Domain)** | 15 | Entities, Value Objects, Constructeurs |
 | **Unitaires (Application)** | 12 | Services, Validation, DTOs |
 | **Unitaires (API)** | 9 | Controllers, Middlewares |
-| **Integration (API)** | 10 | Endpoints REST |
+| **Intégration (API)** | 10 | Endpoints REST |
 | **Total** | **46** | **~80%** |
 
-### Evolution
+### Évolution
 
 ```mermaid
 graph LR
@@ -98,7 +98,7 @@ graph LR
 
 ## Configuration CI/CD
 
-L'analyse SonarCloud est integree dans le workflow GitHub Actions :
+L'analyse SonarCloud est intégrée dans le workflow GitHub Actions :
 
 ```yaml
 - name: Begin SonarCloud analysis
@@ -122,39 +122,39 @@ L'analyse SonarCloud est integree dans le workflow GitHub Actions :
 
 ---
 
-## Regles de qualite
+## Règles de qualité
 
-### Severite des issues
+### Sévérité des issues
 
 | Niveau | Description | Action |
 |--------|-------------|--------|
-| **Blocker** | Bug critique ou vulnerabilite | Correction immediate |
-| **Critical** | Bug ou vulnerabilite importante | Correction prioritaire |
-| **Major** | Issue significative | Correction planifiee |
+| **Blocker** | Bug critique ou vulnérabilité | Correction immédiate |
+| **Critical** | Bug ou vulnérabilité importante | Correction prioritaire |
+| **Major** | Issue significative | Correction planifiée |
 | **Minor** | Issue mineure | Correction opportuniste |
-| **Info** | Suggestion d'amelioration | Optionnel |
+| **Info** | Suggestion d'amélioration | Optionnel |
 
 ### Quality Gate
 
-Le projet doit respecter ces criteres pour passer le Quality Gate :
+Le projet doit respecter ces critères pour passer le Quality Gate :
 
 - **0** nouveaux bugs
-- **0** nouvelles vulnerabilites
+- **0** nouvelles vulnérabilités
 - **0** nouveaux Code Smells bloquants
 - Couverture sur nouveau code **> 80%**
 - Duplication sur nouveau code **< 3%**
 
 ---
 
-## Securite
+## Sécurité
 
-### Issues corrigees
+### Issues corrigées
 
 | Issue | Fichier | Correction |
 |-------|---------|------------|
-| Cle JWT hardcodee | `AuthController.cs` | Configuration externalisee + pragma warning |
-| Cle JWT hardcodee | `Program.cs` | Configuration externalisee |
-| Permissions workflow | `ci.yml` | Deplacees au niveau job |
+| Clé JWT hardcodée | `AuthController.cs` | Configuration externalisée + pragma warning |
+| Clé JWT hardcodée | `Program.cs` | Configuration externalisée |
+| Permissions workflow | `ci.yml` | Déplacées au niveau job |
 
 ### Bonnes pratiques
 

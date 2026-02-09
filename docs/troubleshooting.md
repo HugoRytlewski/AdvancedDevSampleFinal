@@ -1,6 +1,6 @@
 # Troubleshooting
 
-Solutions aux problemes courants du projet AdvancedDevSample.
+Solutions aux problèmes courants du projet AdvancedDevSample.
 
 ---
 
@@ -8,7 +8,7 @@ Solutions aux problemes courants du projet AdvancedDevSample.
 
 ### Erreur : "The type or namespace name 'X' could not be found"
 
-**Cause :** Dependances manquantes ou non restaurees.
+**Cause :** Dépendances manquantes ou non restaurées.
 
 **Solution :**
 
@@ -28,14 +28,14 @@ dotnet build
 warning NU1603: AdvancedDevSample.Api dépend de Microsoft.AspNetCore.Authentication.JwtBearer (>= 10.0.0-preview.1.25081.5) mais Microsoft.AspNetCore.Authentication.JwtBearer 10.0.0-preview.1.25081.5 est introuvable
 ```
 
-**Cause :** Version preview de package non trouvee, une version superieure est utilisee.
+**Cause :** Version preview de package non trouvée, une version supérieure est utilisée.
 
 **Impact :** Aucun (warning seulement, pas d'erreur).
 
 **Solution (optionnelle) :**
 
 ```bash
-# Mettre a jour vers la derniere version stable
+# Mettre à jour vers la dernière version stable
 dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 ```
 
@@ -75,7 +75,7 @@ Creer/verifier `AdvancedDevSample.Api/appsettings.json` :
 
 **Cause 3 :** Token malformed
 
-**Solution :** Verifier le format : `Bearer ` + token (avec espace)
+**Solution :** Vérifiez le format : `Bearer ` + token (avec espace)
 
 ---
 
@@ -85,7 +85,7 @@ Creer/verifier `AdvancedDevSample.Api/appsettings.json` :
 
 **Solution :**
 
-1. Verifier que `appsettings.json` contient la meme cle
+1. Vérifiez que `appsettings.json` contient la meme clé
 2. Redemarrer l'API
 
 ---
@@ -130,7 +130,7 @@ Modifier `AdvancedDevSample.Api/Properties/launchSettings.json` :
 
 **Solution :**
 
-1. Verifier les comments XML dans controllers
+1. Vérifiez les comments XML dans controllers
 2. Rebuilder le projet
 
 ```bash
@@ -191,7 +191,7 @@ Assert.StartsWith("application/json", response.ContentType);
 
 **Cause :** Repository non injecte ou mal configure.
 
-**Solution :** Verifier `Program.cs`
+**Solution :** Vérifiez `Program.cs`
 
 ```csharp
 builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
@@ -203,7 +203,7 @@ builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
 
 ### Workflow "build-and-test" echoue
 
-**Solution 1 :** Verifier les logs GitHub Actions
+**Solution 1 :** Vérifiez les logs GitHub Actions
 
 1. Aller sur l'onglet "Actions"
 2. Cliquer sur le workflow echoue
@@ -253,7 +253,7 @@ time_total: %{time_total}s
 
 **Solutions :**
 
-1. Verifier les logs pour exceptions
+1. Vérifiez les logs pour exceptions
 2. Profiler avec dotTrace/dotMemory
 3. Ajouter du caching (si necessaire)
 
@@ -308,7 +308,7 @@ pip install mkdocs mkdocs-material
 
 **Cause :** ID inexistant dans le repository.
 
-**Solution :** Verifier que l'ID existe via `GET /api/products`
+**Solution :** Vérifiez que l'ID existe via `GET /api/products`
 
 ---
 

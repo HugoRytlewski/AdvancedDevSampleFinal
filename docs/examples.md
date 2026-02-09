@@ -168,7 +168,7 @@ curl -X GET https://localhost:5001/api/products \
 
 ### Erreur 400 : Prix negatif
 
-**Requete :**
+**Requête :**
 
 ```bash
 curl -X POST https://localhost:5001/api/products \
@@ -194,7 +194,7 @@ curl -X POST https://localhost:5001/api/products \
 
 ### Erreur 404 : Produit introuvable
 
-**Requete :**
+**Requête :**
 
 ```bash
 curl -X GET https://localhost:5001/api/products/00000000-0000-0000-0000-000000000000 \

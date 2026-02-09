@@ -1,26 +1,26 @@
 # Architecture Decision Records (ADR)
 
-Decisions techniques majeures du projet AdvancedDevSample.
+Décisions techniques majeures du projet AdvancedDevSample.
 
 ---
 
 ## ADR-001 : Clean Architecture
 
 **Date :** 2026-01-15  
-**Statut :** Accepte  
-**Decideurs :** Equipe technique
+**Statut :** Accepté  
+**Décideurs :** Équipe technique
 
 ### Contexte
 
 Nous devions choisir un pattern architectural pour structurer le projet.
 
-**Options considerees :**
+**Options considérées :**
 
 1. Architecture en couches traditionnelle (3-tier)
 2. Clean Architecture (Hexagonale)
 3. Microservices
 
-### Decision
+### Décision
 
 Nous avons choisi **Clean Architecture** (Hexagonale).
 
@@ -28,20 +28,20 @@ Nous avons choisi **Clean Architecture** (Hexagonale).
 
 **Avantages :**
 
-- **Testabilite** : Domaine independant, facile a tester
-- **Maintenabilite** : Separation claire des responsabilites
-- **Flexibilite** : Facile de changer infrastructure (DB, framework)
+- **Testabilité** : Domaine indépendant, facile à tester
+- **Maintenabilité** : Séparation claire des responsabilités
+- **Flexibilité** : Facile de changer infrastructure (DB, framework)
 - **DDD** : S'aligne naturellement avec Domain-Driven Design
 
-**Inconvenients :**
+**Inconvénients :**
 
-- Complexite initiale (plus de fichiers)
+- Complexité initiale (plus de fichiers)
 - Courbe d'apprentissage
 
 **Pourquoi pas 3-tier ?**
 
 - Couplage fort entre couches
-- Logique metier souvent dans la couche service
+- Logique métier souvent dans la couche service
 
 **Pourquoi pas microservices ?**
 

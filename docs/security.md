@@ -1,17 +1,17 @@
 # Security
 
-Guide de securite du projet AdvancedDevSample.
+Guide de sécurité du projet AdvancedDevSample.
 
 ---
 
 ## OWASP Top 10 - Mitigations
 
-| Risque OWASP | Mitigation appliquee | Implementation |
+| Risque OWASP | Mitigation appliquée | Implémentation |
 |--------------|---------------------|----------------|
 | **A01: Broken Access Control** | JWT obligatoire pour endpoints sensibles | `[Authorize]` sur ProductsController |
-| **A02: Cryptographic Failures** | Cle JWT securisee (256 bits) | `appsettings.json` + variable d'environnement |
-| **A03: Injection** | Value Objects + validation | `Price` valide les entrees |
-| **A04: Insecure Design** | Clean Architecture + DDD | Separation stricte des couches |
+| **A02: Cryptographic Failures** | Clé JWT sécurisée (256 bits) | `appsettings.json` + variable d'environnement |
+| **A03: Injection** | Value Objects + validation | `Price` valide les entrées |
+| **A04: Insecure Design** | Clean Architecture + DDD | Séparation stricte des couches |
 | **A05: Security Misconfiguration** | Configuration explicite | `Program.cs` configure JWT |
 | **A07: Authentication Failures** | JWT avec expiration (30 min) | `GenerateJwtToken()` |
 | **A08: Software Data Integrity** | Tests (46, couverture 80%) | CI/CD avec SonarCloud |
@@ -22,7 +22,7 @@ Guide de securite du projet AdvancedDevSample.
 
 ## JWT (JSON Web Token)
 
-### Generation
+### Génération
 
 **Algorithme :** HMAC SHA256
 

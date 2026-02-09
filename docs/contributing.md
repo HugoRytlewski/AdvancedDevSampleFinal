@@ -4,21 +4,21 @@ Guide de contribution au projet AdvancedDevSample.
 
 ---
 
-## Avant de commencer
+### Branchement
 
-Merci de contribuer ! Ce guide vous aide a respecter les standards du projet.
+Merci de contribuer ! Ce guide vous aide à respecter les standards du projet.
 
-### Prerequis
+### Prérequis
 
 - Avoir lu le [Getting Started](getting-started.md)
-- Avoir fork le repository
-- Avoir clone votre fork localement
+- Avoir forké le repository
+- Avoir cloné votre fork localement
 
 ---
 
 ## Process de contribution
 
-### 1. Creer une branche
+### 1. Créer une branche
 
 ```bash
 git checkout -b feature/nom-de-la-feature
@@ -28,7 +28,7 @@ git checkout -b fix/nom-du-bug
 
 **Convention de nommage :**
 
-- `feature/` : Nouvelle fonctionnalite
+- `feature/` : Nouvelle fonctionnalité
 - `fix/` : Correction de bug
 - `docs/` : Documentation
 - `refactor/` : Refactoring
@@ -42,17 +42,17 @@ Suivez les [standards de code](#standards-de-code) decrits ci-dessous.
 
 ---
 
-### 3. Ecrire des tests
+### 3. Écrire des tests
 
 > [!IMPORTANT]
-> Toute nouvelle feature doit inclure des tests.
+> Toute nouvelle fonctionnalité doit inclure des tests.
 
 **Types de tests :**
 
-- **Unitaires (Domain)** : Tester les entites et value objects
+- **Unitaires (Domain)** : Tester les entités et value objects
 - **Unitaires (Application)** : Tester les services
 - **Unitaires (API)** : Tester les controllers et middlewares
-- **Integration** : Tester les endpoints end-to-end
+- **Intégration** : Tester les endpoints end-to-end
 
 **Exemple :**
 
@@ -73,7 +73,7 @@ public void MethodName_Should_ExpectedBehavior_When_Condition()
 
 ---
 
-### 4. Verifier que tout fonctionne
+### 4. Vérifier que tout fonctionne
 
 ```bash
 # Build
@@ -82,7 +82,7 @@ dotnet build
 # Tests
 dotnet test
 
-# Verifier la couverture (objectif: 80%+)
+# Vérifier la couverture (objectif: 80%+)
 dotnet-coverage collect "dotnet test" -f xml -o coverage.xml
 ```
 
@@ -102,13 +102,13 @@ dotnet-coverage collect "dotnet test" -f xml -o coverage.xml
 
 **Types :**
 
-- `feat` : Nouvelle fonctionnalite
+- `feat` : Nouvelle fonctionnalité
 - `fix` : Correction de bug
 - `docs` : Documentation
 - `style` : Formatage (sans changement de logique)
 - `refactor` : Refactoring
 - `test` : Ajout de tests
-- `chore` : Taches de maintenance
+- `chore` : Tâches de maintenance
 
 **Exemples :**
 
@@ -139,12 +139,12 @@ Puis sur GitHub :
 
 ### Conventions C#
 
-| Element | Convention | Exemple |
+| Élément | Convention | Exemple |
 |---------|-----------|---------|
 | **Classe** | PascalCase | `ProductService` |
-| **Methode** | PascalCase | `GetById()` |
+| **Méthode** | PascalCase | `GetById()` |
 | **Variable locale** | camelCase | `productId` |
-| **Propriete** | PascalCase | `Price` |
+| **Propriété** | PascalCase | `Price` |
 | **Constante** | PascalCase | `MaxRetries` |
 | **Interface** | I + PascalCase | `IProductRepository` |
 

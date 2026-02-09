@@ -4,11 +4,11 @@ Guide de performance et optimisations du projet AdvancedDevSample.
 
 ---
 
-## Metriques de performance
+## Métriques de performance
 
 ### Temps de reponse
 
-| Endpoint | Methode | Temps moyen | Cible |
+| Endpoint | Méthode | Temps moyen | Cible |
 |----------|---------|-------------|-------|
 | `/api/auth/login` | POST | ~5ms | < 50ms |
 | `/api/products` | GET | ~2ms | < 20ms |
@@ -17,7 +17,7 @@ Guide de performance et optimisations du projet AdvancedDevSample.
 | `/api/products/{id}/price` | PUT | ~2ms | < 20ms |
 
 > [!NOTE]
-> Mesures avec **In-Memory Repository**. Performance DB reelle sera superieure.
+> Mesures avec **In-Memory Repository**. Performance DB réelle sera supérieure.
 
 ---
 

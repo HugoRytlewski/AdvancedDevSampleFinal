@@ -4,11 +4,11 @@ Vue d'ensemble de l'architecture du projet AdvancedDevSample.
 
 ## Architecture en couches
 
-Le projet suit une **architecture hexagonale** (Clean Architecture) avec separation claire des responsabilites.
+Le projet suit une **architecture hexagonale** (Clean Architecture) avec séparation claire des responsabilités.
 
 ```mermaid
 graph TB
-    subgraph Presentation["Couche Presentation"]
+    subgraph Presentation["Couche Présentation"]
         API[API Controllers]
         Swagger[Swagger UI]
         Middleware[Middlewares]
@@ -20,7 +20,7 @@ graph TB
     end
     
     subgraph Domain["Couche Domaine"]
-        Entities[Entites]
+        Entities[Entités]
         ValueObjects[Value Objects]
         Interfaces[Interfaces Repository]
         DomainExceptions[Exceptions Domaine]
@@ -28,7 +28,7 @@ graph TB
     
     subgraph Infrastructure["Couche Infrastructure"]
         Repositories[Repositories]
-        Database[(Base de donnees)]
+        Database[(Base de données)]
     end
     
     API --> Services
@@ -51,7 +51,7 @@ AdvancedDevSample/
 
 ---
 
-## Flux d'une requete
+## Flux d'une requête
 
 ```mermaid
 sequenceDiagram
@@ -64,12 +64,12 @@ sequenceDiagram
     
     Client->>Middleware: HTTP Request
     Middleware->>Middleware: JWT Validation
-    Middleware->>Controller: Request validee
+    Middleware->>Controller: Request validée
     Controller->>Service: Appel service
-    Service->>Repository: Acces donnees
+    Service->>Repository: Accès données
     Repository->>Database: Query
-    Database-->>Repository: Resultat
-    Repository-->>Service: Entite
+    Database-->>Repository: Résultat
+    Repository-->>Service: Entité
     Service-->>Controller: DTO
     Controller-->>Client: HTTP Response
 ```
@@ -83,7 +83,7 @@ stateDiagram-v2
     [*] --> Created: POST /api/products
     Created --> Active: Etat initial
     Active --> PriceChanged: PUT /api/products/{id}/price
-    PriceChanged --> Active: Nouveau prix applique
+    PriceChanged --> Active: Nouveau prix appliqué
     Active --> Inactive: DELETE /api/products/{id}
     Inactive --> [*]: Soft Delete
 ```
@@ -133,7 +133,7 @@ classDiagram
 
 ```mermaid
 flowchart LR
-    subgraph Trigger["Declencheur"]
+    subgraph Trigger["Déclencheur"]
         Push[Push main]
         PR[Pull Request]
     end
@@ -149,7 +149,7 @@ flowchart LR
         Coverage[Couverture]
     end
     
-    subgraph Deploy["Deploiement"]
+    subgraph Deploy["Déploiement"]
         MkDocs[Build MkDocs]
         Pages[GitHub Pages]
     end
@@ -170,33 +170,33 @@ flowchart LR
 
 | Principe | Description | Application |
 |----------|-------------|-------------|
-| **S** - Single Responsibility | Une classe = une responsabilite | `ProductService` gere uniquement les produits |
-| **O** - Open/Closed | Ouvert a l'extension, ferme a la modification | Interfaces pour les repositories |
-| **L** - Liskov Substitution | Les sous-types respectent les contrats | `EfProductRepository` implemente `IProductRepository` |
-| **I** - Interface Segregation | Interfaces specifiques et focalisees | `IProductRepository` vs interface generique |
-| **D** - Dependency Inversion | Dependre des abstractions | Injection de `IProductRepository` |
+| **S** - Single Responsibility | Une classe = une responsabilité | `ProductService` gère uniquement les produits |
+| **O** - Open/Closed | Ouvert à l'extension, fermé à la modification | Interfaces pour les repositories |
+| **L** - Liskov Substitution | Les sous-types respectent les contrats | `EfProductRepository` implémente `IProductRepository` |
+| **I** - Interface Segregation | Interfaces spécifiques et focalisées | `IProductRepository` vs interface générique |
+| **D** - Dependency Inversion | Dépendre des abstractions | Injection de `IProductRepository` |
 
 ---
 
-## Regles Clean Code
+## Règles Clean Code
 
-| Regle | Description |
+| Règle | Description |
 |-------|-------------|
 | Noms explicites | `GetProductById` vs `Get` |
-| Fonctions courtes | Maximum 20 lignes par methode |
-| Un niveau d'abstraction | Chaque fonction opere a un seul niveau |
+| Fonctions courtes | Maximum 20 lignes par méthode |
+| Un niveau d'abstraction | Chaque fonction opère à un seul niveau |
 | Pas de commentaires inutiles | Le code s'auto-documente |
-| Gestion des erreurs | Exceptions specifiques au domaine |
+| Gestion des erreurs | Exceptions spécifiques au domaine |
 
 ---
 
-## Metriques de qualite (SonarCloud)
+## Métriques de qualité (SonarCloud)
 
-| Metrique | Objectif |
+| Métrique | Objectif |
 |----------|----------|
 | Couverture de code | > 80% |
 | Code Smells | 0 bloquants |
 | Bugs | 0 |
-| Vulnerabilites | 0 |
+| Vulnérabilités | 0 |
 | Dette technique | < 1 jour |
 | Duplications | < 3% |
