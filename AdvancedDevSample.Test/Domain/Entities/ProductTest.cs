@@ -147,6 +147,19 @@ namespace AdvancedDevSample.Test.Domain.Entities
             var exception = Assert.Throws<DomainException>(() => product.ChangePrice(150m));
             Assert.Equal("Le produit est inactif.", exception.Message);
         }
+        [Fact]
+        public void Activate_Should_Make_Product_Active()
+        {
+            // Arrange
+            var product = new Product("Test", new Price(10));
+            product.Deactivate();
+            
+            // Act
+            product.Activate();
+
+            // Assert
+            Assert.True(product.IsActive);
+        }
     }
 }
 

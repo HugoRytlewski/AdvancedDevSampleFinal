@@ -26,7 +26,7 @@ namespace AdvancedDevSample.Api.Tests.Integration
                 services.RemoveAll<IProductRepository>();
 
                 // Add in-memory repository as singleton for test isolation
-                services.AddSingleton<IProductRepository, InMemoryProductRepositoryAsync>();
+                services.AddSingleton<IProductRepository, InMemoryProductRepository>();
 
                 services.RemoveAll<IClientRepository>();
                 services.AddSingleton<IClientRepository, InMemoryClientRepository>();

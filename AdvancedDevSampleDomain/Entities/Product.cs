@@ -43,7 +43,7 @@ namespace AdvancedDevSample.Domain.Entities
         protected Product()
         {
             Name = string.Empty;
-            Price = new Price(0, "EUR");
+            Price = new Price(1, "EUR");
             IsActive = true;
         }
 

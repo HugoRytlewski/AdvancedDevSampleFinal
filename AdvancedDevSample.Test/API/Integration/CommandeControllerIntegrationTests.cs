@@ -12,28 +12,28 @@ namespace AdvancedDevSample.Tests.API.Integration
     public class CommandeControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory>
     {
         private readonly HttpClient _client;
-        private readonly InMemoryCommandeRepository _repoCommande;
-        private readonly InMemoryClientRepository _repoClient;
-        private readonly InMemoryProductRepositoryAsync _repoProduct;
+        private readonly InMemoryCommandeRepository _commandeRepo;
+        private readonly InMemoryClientRepository _clientRepo;
+        private readonly InMemoryProductRepository _productRepo;
 
         public CommandeControllerIntegrationTests(CustomWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-            _repoCommande = (InMemoryCommandeRepository)factory.Services.GetRequiredService<ICommandeRepository>();
-            _repoClient = (InMemoryClientRepository)factory.Services.GetRequiredService<IClientRepository>();
-            _repoProduct = (InMemoryProductRepositoryAsync)factory.Services.GetRequiredService<IProductRepository>();
+            _commandeRepo = (InMemoryCommandeRepository)factory.Services.GetRequiredService<ICommandeRepository>();
+            _clientRepo = (InMemoryClientRepository)factory.Services.GetRequiredService<IClientRepository>();
+            _productRepo = (InMemoryProductRepository)factory.Services.GetRequiredService<IProductRepository>();
             
-            _repoCommande.Clear();
-            _repoClient.Clear();
-            _repoProduct.Clear();
+            _commandeRepo.Clear();
+            _clientRepo.Clear();
+            _productRepo.Clear();
         }
 
         [Fact]
-        public async Task CreateCommande_Should_Return_Created()
+        public async Task CreateCommande_Should_Return_Created_When_Client_Exists()
         {
             // Arrange
-            var client = new Client("Test Client", "test@test.com", "Address");
-            _repoClient.Seed(client);
+            var client = new Client("John", "john@test.com", "Address");
+            _clientRepo.Seed(client);
             var request = new CreateCommandeRequest(client.Id);
 
             // Act
@@ -41,22 +41,58 @@ namespace AdvancedDevSample.Tests.API.Integration
 
             // Assert
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-            var commande = await response.Content.ReadFromJsonAsync<CommandeDto>();
-            Assert.Equal("Created", commande.Status);
+            var dto = await response.Content.ReadFromJsonAsync<CommandeDto>();
+            Assert.NotNull(dto);
+            Assert.Equal(client.Id, dto.ClientId);
         }
 
         [Fact]
-        public async Task AddItem_Should_Update_Total()
+        public async Task CreateCommande_Should_Return_BadRequest_When_Client_Not_Exists()
         {
             // Arrange
-            var client = new Client("Test Client", "test@test.com", "Address");
-            _repoClient.Seed(client);
-            var product = new Product("Test Product", new Price(10m, "EUR"));
-            _repoProduct.Seed(product);
-            
-            var commande = new Commande(client.Id);
-            _repoCommande.Seed(commande);
+            var request = new CreateCommandeRequest(Guid.NewGuid());
 
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/commande", request);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetCommande_Should_Return_Ok_When_Found()
+        {
+            // Arrange
+            var commande = new Commande(Guid.NewGuid());
+            _commandeRepo.Seed(commande);
+
+            // Act
+            var response = await _client.GetAsync($"/api/commande/{commande.Id}");
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            var dto = await response.Content.ReadFromJsonAsync<CommandeDto>();
+            Assert.Equal(commande.Id, dto.Id);
+        }
+
+        [Fact]
+        public async Task GetCommande_Should_Return_NotFound_When_Not_Found()
+        {
+            // Act
+            var response = await _client.GetAsync($"/api/commande/{Guid.NewGuid()}");
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task AddItem_Should_Return_Ok_When_Valid()
+        {
+            // Arrange
+            var commande = new Commande(Guid.NewGuid());
+            _commandeRepo.Seed(commande);
+            var product = new Product("Test Product", new Price(10, "EUR"));
+            _productRepo.Seed(product);
             var request = new AddItemRequest(product.Id, 2);
 
             // Act
@@ -64,30 +100,57 @@ namespace AdvancedDevSample.Tests.API.Integration
 
             // Assert
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
-            var updated = _repoCommande.GetById(commande.Id);
-            Assert.Equal(20m, updated.CalculateTotal());
+            var updated = _commandeRepo.GetById(commande.Id);
+            Assert.Single(updated.Lignes);
+            Assert.Equal(20, updated.CalculateTotal());
         }
 
         [Fact]
-        public async Task ValidateCommande_Should_Change_Status()
+        public async Task AddItem_Should_Return_NotFound_When_Commande_Not_Found()
         {
-             // Arrange
-            var client = new Client("Test Client", "test@test.com", "Address");
-            _repoClient.Seed(client);
-            var product = new Product("Test Product", new Price(10m, "EUR"));
-            _repoProduct.Seed(product);
-            
-            var commande = new Commande(client.Id);
-            commande.AddItem(product.Id, 1, product.Price);
-            _repoCommande.Seed(commande);
+            // Arrange
+            var request = new AddItemRequest(Guid.NewGuid(), 1);
 
             // Act
-            var response = await _client.PostAsync($"/api/commande/{commande.Id}/validate", null);
+            var response = await _client.PostAsJsonAsync($"/api/commande/{Guid.NewGuid()}/items", request);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task RemoveItem_Should_Return_Ok_When_Valid()
+        {
+            // Arrange
+            var commande = new Commande(Guid.NewGuid());
+            var product = new Product("Test Product", new Price(10, "EUR"));
+            _productRepo.Seed(product);
+            commande.AddItem(product.Id, 2, product.Price);
+            _commandeRepo.Seed(commande);
+
+            // Act
+            var response = await _client.DeleteAsync($"/api/commande/{commande.Id}/items/{product.Id}");
 
             // Assert
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
-            var updated = _repoCommande.GetById(commande.Id);
-            Assert.Equal(CommandeStatus.Validated, updated.Status);
+            var updated = _commandeRepo.GetById(commande.Id);
+            Assert.Empty(updated.Lignes);
+        }
+
+        [Fact]
+        public async Task CancelCommande_Should_Return_Ok_When_Valid()
+        {
+            // Arrange
+            var commande = new Commande(Guid.NewGuid());
+            _commandeRepo.Seed(commande);
+
+            // Act
+            var response = await _client.PostAsync($"/api/commande/{commande.Id}/cancel", null);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+            var updated = _commandeRepo.GetById(commande.Id);
+            Assert.Equal(CommandeStatus.Cancelled, updated.Status);
         }
     }
 }

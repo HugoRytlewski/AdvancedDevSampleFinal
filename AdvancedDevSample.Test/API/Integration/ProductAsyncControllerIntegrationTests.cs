@@ -12,12 +12,12 @@ namespace AdvancedDevSample.Tests.API.Integration
     public class ProductAsyncControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory>
     {
         private readonly HttpClient _client;
-        private readonly InMemoryProductRepositoryAsync _repo;
+        private readonly InMemoryProductRepository _repo;
 
         public ProductAsyncControllerIntegrationTests(CustomWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-            _repo = (InMemoryProductRepositoryAsync)factory.Services.GetRequiredService<IProductRepository>();
+            _repo = (InMemoryProductRepository)factory.Services.GetRequiredService<IProductRepository>();
             _repo.Clear(); // Ensure clean state for each test class
         }
 

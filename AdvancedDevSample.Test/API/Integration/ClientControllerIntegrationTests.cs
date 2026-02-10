@@ -85,5 +85,57 @@ namespace AdvancedDevSample.Tests.API.Integration
             var updated = _repo.GetById(client.Id);
             Assert.Equal("New Address", updated.Address);
         }
+
+        [Fact]
+        public async Task GetClient_Should_Return_NotFound_When_Not_Exists()
+        {
+            // Act
+            var response = await _client.GetAsync($"/api/client/{Guid.NewGuid()}");
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task CreateClient_Should_Return_BadRequest_When_Invalid()
+        {
+            // Arrange
+            var request = new CreateClientRequest("", "invalid-email", ""); // Invalid data
+
+            // Act
+            var response = await _client.PostAsJsonAsync("/api/client", request);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task UpdateAddress_Should_Return_NotFound_When_Client_Not_Exists()
+        {
+            // Arrange
+            var request = new UpdateClientAddressRequest("New Address");
+
+            // Act
+            var response = await _client.PutAsJsonAsync($"/api/client/{Guid.NewGuid()}/address", request);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task DeleteClient_Should_Return_NoContent()
+        {
+            // Arrange
+            var client = new Client("To Delete", "delete@example.com", "Address");
+            _repo.Seed(client);
+
+            // Act
+            var response = await _client.DeleteAsync($"/api/client/{client.Id}");
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+            Assert.Null(_repo.GetById(client.Id));
+        }
+
     }
 }
