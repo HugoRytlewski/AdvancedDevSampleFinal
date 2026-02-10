@@ -43,7 +43,7 @@ Accédez au rapport complet sur SonarCloud :
 | Métrique | Valeur actuelle | Objectif |
 |----------|----------------|----------|
 | **Quality Gate** | Passed | Passed |
-| **Tests** | **73** | Maintenus |
+| **Tests** | **121** | Maintenus |
 | **Coverage** | **> 80%** | > 80% |
 | **Bugs** | 0 | 0 |
 | **Vulnérabilités** | 0 | 0 |
@@ -58,8 +58,8 @@ Accédez au rapport complet sur SonarCloud :
 ```mermaid
 graph LR
     A[Push/PR] --> B[Build .NET]
-    B --> C[Run 73 Tests]
-    C --> D[Collect Coverage]
+    B --> C[Run 121 Tests]
+    C --> D[Collect Coverage] 
     D --> E[SonarCloud Scan]
     E --> F{Quality Gate}
     F -->|Passed| G[Deploy Docs]
@@ -79,7 +79,7 @@ graph LR
 | **Unitaires (API)** | 10 | Controllers, Middlewares |
 | **Intégration (API)** | 12 | Endpoints REST (CRUD complet + Health) |
 | **Health Check** | 1 | Disponibilité API |
-| **Total** | **73** | **> 85%** |
+| **Total** | **121** | **> 85%** |
 
 ### Évolution
 
@@ -89,7 +89,7 @@ graph LR
     B --> C[+ Commande Unit]
     C --> D[+ Integration API]
     D --> E[+ Health Check]
-    E --> F[Final: 73 tests]
+    E --> F[Final: 121 tests]
     
     style A fill:#ff6b6b
     style F fill:#51cf66
