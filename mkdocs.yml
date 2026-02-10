@@ -7,7 +7,7 @@ repo_name: HugoRytlewski/AdvancedDevSampleFinal
 repo_url: https://github.com/HugoRytlewski/AdvancedDevSampleFinal
 
 theme:
-  name: material
+  name: hadcn
   language: fr
   palette:
     - scheme: slate
