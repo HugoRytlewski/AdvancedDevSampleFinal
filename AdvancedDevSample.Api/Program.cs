@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using AdvancedDevSample.Domain.Services;
+using AdvancedDevSample.Application.Services;
 using AdvancedDevSample.Domain.Interfaces;
 using AdvancedDevSample.Infrastructure.Repositories;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -71,8 +72,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // Injection de dépendances
+// Injection de dépendances
 builder.Services.AddScoped<IProductRepository, EfProductRepository>();
 builder.Services.AddScoped<ProductService>();
+
+builder.Services.AddScoped<IClientRepository, EfClientRepository>();
+builder.Services.AddScoped<ClientService>();
+
+builder.Services.AddScoped<IFournisseurRepository, EfFournisseurRepository>();
+builder.Services.AddScoped<FournisseurService>();
+
+builder.Services.AddScoped<ICommandeRepository, EfCommandeRepository>();
+builder.Services.AddScoped<CommandeService>();
 
 var app = builder.Build();
 

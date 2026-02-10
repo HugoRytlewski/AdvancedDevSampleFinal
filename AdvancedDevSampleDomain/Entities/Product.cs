@@ -13,25 +13,28 @@ namespace AdvancedDevSample.Domain.Entities
         public string Name { get; private set; } = string.Empty;
         public Price Price { get; private set; }
         public bool IsActive { get; private set; }
+        public Guid? FournisseurId { get; private set; }
 
-        public Product(string name, Price price) : this(Guid.NewGuid(), name, price) { }
+        public Product(string name, Price price, Guid? fournisseurId = null) : this(Guid.NewGuid(), name, price, fournisseurId) { }
 
-        public Product(Guid id, string name, Price price)
+        public Product(Guid id, string name, Price price, Guid? fournisseurId = null)
         {
             Id = id == Guid.Empty ? Guid.NewGuid() : id;
             Name = string.IsNullOrWhiteSpace(name) ? throw new DomainException("Le nom est obligatoire.") : name;
             Price = price;
             IsActive = true;
+            FournisseurId = fournisseurId;
         }
 
         public Product(Price price) : this("Produit sans nom", price) { }
 
-        public Product(Guid id, Price price, bool isActive)
+        public Product(Guid id, Price price, bool isActive, Guid? fournisseurId = null)
         {
             Id = id == Guid.Empty ? Guid.NewGuid() : id;
             Name = "Produit sans nom";
             Price = price;
             IsActive = isActive;
+            FournisseurId = fournisseurId;
         }
 
         public Product(Guid id, Price price) : this(id, "Produit sans nom", price) { }

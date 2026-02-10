@@ -11,14 +11,25 @@ graph LR
     end
     
     subgraph Products
-        GetAll
-        GetById
-        Create
-        ChangePrice
-        Delete
+        P_GetAll[GetAll]
+        P_GetById[GetById]
+        P_Create[Create]
+    end
+
+    subgraph Clients
+        C_Create[Create]
+        C_GetAll[GetAll]
+    end
+
+    subgraph Orders
+        O_Create[Create]
+        O_AddItem[AddItem]
+        O_Validate[Validate]
     end
     
     Login --> |JWT Token| Products
+    Login --> |JWT Token| Clients
+    Login --> |JWT Token| Orders
 ```
 
 ---
@@ -189,6 +200,83 @@ Supprime un produit (soft delete).
 |------|-------------|
 | 204 | Produit supprime |
 | 401 | Non autorise |
+
+---
+
+---
+
+## Clients
+
+### POST /api/client
+
+Crée un nouveau client.
+
+**Request Body:**
+
+```json
+{
+  "name": "Jean Dupont",
+  "email": "jean.dupont@example.com",
+  "address": "10 Rue de la Paix, Paris"
+}
+```
+
+**Responses:**
+
+| Code | Description |
+|------|-------------|
+| 201 | Client créé |
+| 400 | Données invalides |
+
+---
+
+## Fournisseurs
+
+### POST /api/fournisseur
+
+Crée un nouveau fournisseur.
+
+**Request Body:**
+
+```json
+{
+  "name": "TechSupply Co.",
+  "contactEmail": "contact@techsupply.com"
+}
+```
+
+---
+
+## Commandes
+
+### POST /api/commande
+
+Initie une nouvelle commande pour un client.
+
+**Request Body:**
+
+```json
+{
+  "clientId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+```
+
+### POST /api/commande/{id}/items
+
+Ajoute un produit à la commande.
+
+**Request Body:**
+
+```json
+{
+  "productId": "7fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "quantity": 2
+}
+```
+
+### POST /api/commande/{id}/validate
+
+Valide la commande et change son statut.
 
 ---
 
