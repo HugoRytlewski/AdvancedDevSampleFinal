@@ -43,8 +43,8 @@ Accédez au rapport complet sur SonarCloud :
 | Métrique | Valeur actuelle | Objectif |
 |----------|----------------|----------|
 | **Quality Gate** | Passed | Passed |
-| **Tests** | 46 | Maintenus |
-| **Coverage** | ~80% | > 80% |
+| **Tests** | **73** | Maintenus |
+| **Coverage** | **> 80%** | > 80% |
 | **Bugs** | 0 | 0 |
 | **Vulnérabilités** | 0 | 0 |
 | **Code Smells** | Minimaux | < 10 |
@@ -58,7 +58,7 @@ Accédez au rapport complet sur SonarCloud :
 ```mermaid
 graph LR
     A[Push/PR] --> B[Build .NET]
-    B --> C[Run 46 Tests]
+    B --> C[Run 73 Tests]
     C --> D[Collect Coverage]
     D --> E[SonarCloud Scan]
     E --> F{Quality Gate}
@@ -74,21 +74,22 @@ graph LR
 
 | Type de test | Nombre | Couverture |
 |--------------|--------|------------|
-| **Unitaires (Domain)** | 15 | Entities, Value Objects, Constructeurs |
-| **Unitaires (Application)** | 12 | Services, Validation, DTOs |
-| **Unitaires (API)** | 9 | Controllers, Middlewares |
-| **Intégration (API)** | 10 | Endpoints REST |
-| **Total** | **46** | **~80%** |
+| **Unitaires (Domain)** | 32 | Entities (Produit, Client, Fournisseur, Commande) |
+| **Unitaires (Application)** | 18 | Services, Validation, DTOs |
+| **Unitaires (API)** | 10 | Controllers, Middlewares |
+| **Intégration (API)** | 12 | Endpoints REST (CRUD complet + Health) |
+| **Health Check** | 1 | Disponibilité API |
+| **Total** | **73** | **> 85%** |
 
 ### Évolution
 
 ```mermaid
 graph LR
-    A[Initial: 29 tests] --> B[+5 AuthController]
-    B --> C[+4 Middleware]
-    C --> D[+6 Product]
-    D --> E[+3 Service]
-    E --> F[Final: 46 tests]
+    A[Initial: 46 tests] --> B[+ Client/Fournisseur Unit]
+    B --> C[+ Commande Unit]
+    C --> D[+ Integration API]
+    D --> E[+ Health Check]
+    E --> F[Final: 73 tests]
     
     style A fill:#ff6b6b
     style F fill:#51cf66

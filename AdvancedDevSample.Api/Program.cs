@@ -19,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 // --- SERVICES ---
 
 builder.Services.AddControllers();
+builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -104,5 +105,6 @@ app.UseAuthorization();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 await app.RunAsync();

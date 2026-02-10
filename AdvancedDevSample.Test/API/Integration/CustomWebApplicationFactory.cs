@@ -28,6 +28,15 @@ namespace AdvancedDevSample.Api.Tests.Integration
                 // Add in-memory repository as singleton for test isolation
                 services.AddSingleton<IProductRepository, InMemoryProductRepositoryAsync>();
 
+                services.RemoveAll<IClientRepository>();
+                services.AddSingleton<IClientRepository, InMemoryClientRepository>();
+
+                services.RemoveAll<IFournisseurRepository>();
+                services.AddSingleton<IFournisseurRepository, InMemoryFournisseurRepository>();
+
+                services.RemoveAll<ICommandeRepository>();
+                services.AddSingleton<ICommandeRepository, InMemoryCommandeRepository>();
+
                 // Replace authentication with a test scheme that auto-authenticates
                 services.AddAuthentication("Test")
                     .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>("Test", options => { });
